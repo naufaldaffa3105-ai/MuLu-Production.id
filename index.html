@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MuLu – Mulai Aja Dulu | Digital Agency</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root{
+      --bg:#ffffff;
+      --accent:#387AEB;
+      --accent-2:#3A35B9;
+      --accent-soft:#E8F2FF;
+      --muted:#6b7280;
+      --card:#ffffff;
+      --radius:14px;
+      --container:1100px;
+      --glass: rgba(255,255,255,0.6);
+      --glass-2: rgba(255,255,255,0.85);
+      --ease: cubic-bezier(.2,.9,.3,1);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%;}
+    body{
+      margin:0;font-family:'Poppins',system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial;
+      background:linear-gradient(180deg,#fcfeff,#fbfbff);
+      color:#0f1724;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
+      line-height:1.45;
+    }
+    a{text-decoration:none;color:inherit}
+    img{max-width:100%;display:block;border-radius:10px}
+    .container{max-width:var(--container);margin:0 auto;padding:0 20px}
+
+    /* NAV */
+    header{position:fixed;top:16px;left:0;right:0;z-index:90;}
+    .navwrap{backdrop-filter: blur(6px); background:linear-gradient(180deg, rgba(255,255,255,0.9), rgba(255,255,255,0.6)); margin:0 24px;padding:12px;border-radius:14px;box-shadow:0 8px 30px rgba(10,20,40,0.08);}
+    .nav{display:flex;align-items:center;justify-content:space-between;gap:16px}
+    .brand{display:flex;align-items:center;gap:12px}
+    .logo{width:56px;height:56px;border-radius:12px;background:linear-gradient(135deg,var(--accent),var(--accent-2));display:flex;align-items:center;justify-content:center;color:white;font-weight:800;font-size:20px}
+    .brand .name{font-weight:700}
+    nav ul{display:flex;gap:16px;list-style:none;margin:0;padding:0}
+    nav a{padding:8px 12px;border-radius:10px;color:var(--muted);font-weight:600}
+    nav a:hover{background:var(--accent-soft);color:var(--accent-2)}
+    .cta{background:linear-gradient(90deg,var(--accent),var(--accent-2));color:white;padding:10px 14px;border-radius:10px;font-weight:700}
+    .burger{display:none;border:0;background:none;font-size:20px}
+
+    /* HERO */
+    .hero{padding:140px 0 60px;display:grid;grid-template-columns:1fr 520px;gap:40px;align-items:center}
+    .hero h1{font-size:clamp(30px,4.8vw,48px);color:var(--accent-2);margin:0 0 12px}
+    .hero p{color:var(--muted);font-size:16px;margin:0 0 18px}
+    .actions{display:flex;gap:12px;flex-wrap:wrap}
+    .pill{display:inline-flex;align-items:center;gap:8px;background:var(--accent-soft);padding:8px 12px;border-radius:999px;color:var(--accent-2);font-weight:700}
+
+    /* Sections */
+    section{padding:64px 0}
+    .section-title{display:flex;flex-direction:column;align-items:center;gap:6px;margin-bottom:28px}
+    .section-title h2{color:var(--accent-2);margin:0}
+    .muted{color:var(--muted)}
+
+    /* About */
+    .about-grid{display:grid;grid-template-columns:1fr 360px;gap:28px;align-items:center}
+    .values{display:flex;gap:12px;flex-direction:column}
+    .value{background:linear-gradient(180deg,#fff,#fbfdff);padding:16px;border-radius:12px;box-shadow:0 12px 30px rgba(56,122,235,0.06)}
+
+    /* Services */
+    .services-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px}
+    .service{background:var(--card);padding:20px;border-radius:12px;box-shadow:0 10px 30px rgba(12,20,50,0.05);transition:transform .25s var(--ease)}
+    .service:hover{transform:translateY(-8px)}
+
+    /* Portfolio */
+    .portfolio-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px}
+    .proj{background:white;border-radius:14px;overflow:hidden;box-shadow:0 12px 30px rgba(8,10,30,0.06);cursor:pointer;transition:transform .25s}
+    .proj:hover{transform:translateY(-8px)}
+    .proj .meta{padding:14px}
+    .proj .tags{display:flex;gap:8px;margin-top:8px}
+    .tag{font-size:12px;color:var(--muted);background:#f3f6ff;padding:6px 8px;border-radius:8px}
+
+    /* Team */
+    .team-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:18px}
+    .member{background:linear-gradient(180deg,#fff,#fffaf3);padding:18px;border-radius:12px;text-align:center}
+    .member img{width:120px;height:120px;border-radius:999px;object-fit:cover;margin:0 auto 12px}
+
+    /* Testimonials */
+    .testi-wrap{display:grid;grid-template-columns:1fr 1fr;gap:18px;align-items:center}
+    .testi{background:#fff;border-radius:12px;padding:18px;box-shadow:0 10px 30px rgba(0,0,0,0.04)}
+
+    /* Pricing */
+    .pricing-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px}
+    .price{background:linear-gradient(180deg,#fff,#f8fbff);padding:20px;border-radius:12px;text-align:center;border:1px solid rgba(58,53,185,0.05)}
+    .price .buy{margin-top:12px;background:linear-gradient(90deg,var(--accent),var(--accent-2));color:white;padding:10px 14px;border-radius:10px;border:0;cursor:pointer}
+
+    /* Blog */
+    .blog-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}
+    .post{background:white;border-radius:12px;padding:14px;box-shadow:0 8px 20px rgba(8,10,30,0.04)}
+
+    /* Contact & Footer */
+    .contact-grid{display:grid;grid-template-columns:1fr 360px;gap:24px;align-items:start}
+    form{display:flex;flex-direction:column;gap:12px}
+    input,textarea{padding:12px;border-radius:10px;border:1px solid #e6e9ef}
+    .contact-cta{display:flex;gap:10px;align-items:center}
+    .socials{display:flex;gap:12px}
+
+    footer{padding:28px 0;margin-top:40px;text-align:center;color:rgba(15,23,36,0.9)}
+
+    /* Utilities */
+    .center{display:flex;align-items:center;justify-content:center}
+    .fade{opacity:0;transform:translateY(10px);transition:all .6s var(--ease)}
+    .show{opacity:1;transform:none}
+
+    /* responsive */
+    @media(max-width:1000px){
+      .hero{grid-template-columns:1fr;gap:24px;padding-top:120px}
+      .about-grid{grid-template-columns:1fr}
+      .contact-grid{grid-template-columns:1fr}
+      .testi-wrap{grid-template-columns:1fr}
+      nav ul{display:none}
+      .burger{display:inline}
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="container navwrap">
+      <div class="nav">
+        <div class="brand">
+          <div class="logo">Mu</div>
+          <div>
+            <div class="name">MuLu</div>
+            <div style="font-size:12px;color:rgba(0,0,0,0.6)">Mulai Aja Dulu</div>
+          </div>
+        </div>
+        <nav>
+          <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#portfolio">Portfolio</a></li>
+            <li><a href="#team">Team</a></li>
+            <li><a href="#testimonials">Testimonials</a></li>
+            <li><a href="#pricing">Pricing</a></li>
+            <li><a href="#blog">Blog</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </nav>
+        <div style="display:flex;align-items:center;gap:10px">
+          <a class="cta" href="https://wa.me/6289512538586" target="_blank">Start Project</a>
+          <button class="burger" aria-label="menu">☰</button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- HERO -->
+    <section id="home" class="hero">
+      <div>
+        <div class="pill">Digital Agency • MuLu</div>
+        <h1>We turn small ideas into big digital moments — Mulai Aja Dulu</h1>
+        <p class="muted">Cheerful, data-driven, and creative. We provide social media management, digital marketing, and online services to help your brand grow.</p>
+        <div class="actions">
+          <a class="cta" href="#contact">Let's Start</a>
+          <a class="pill" href="#portfolio">See Our Work</a>
+        </div>
+
+        <div style="display:flex;gap:12px;margin-top:20px;flex-wrap:wrap">
+          <div style="background:#fff;padding:12px;border-radius:12px;box-shadow:0 8px 20px rgba(10,20,40,0.06)"><strong>Founded</strong><div class="muted">2023</div></div>
+          <div style="background:#fff;padding:12px;border-radius:12px;box-shadow:0 8px 20px rgba(10,20,40,0.06)"><strong>Clients</strong><div class="muted">30+ happy clients</div></div>
+        </div>
+      </div>
+      <div class="center">
+        <img src="https://images.pexels.com/photos/3184325/pexels-photo-3184325.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="MuLu illustration">
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about">
+      <div class="section-title">
+        <h2>About MuLu</h2>
+        <p class="muted">A creative digital agency that helps brands start and scale online.</p>
+      </div>
+      <div class="about-grid">
+        <div>
+          <p class="muted">At MuLu, we believe action beats hesitation. Our team combines creative storytelling with performance marketing to deliver campaigns that not only look great but also convert. Whether you're launching a new brand or scaling an existing business, we help you take the first step and keep momentum.</p>
+
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin-top:18px">
+            <div class="value">
+              <strong>Creative</strong>
+              <div class="muted">Design-first approach that resonates.</div>
+            </div>
+            <div class="value">
+              <strong>Data-Driven</strong>
+              <div class="muted">Analytics and insights guide our decisions.</div>
+            </div>
+            <div class="value">
+              <strong>Fast Execution</strong>
+              <div class="muted">We move quickly without sacrificing quality.</div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div style="background:#fff;padding:18px;border-radius:12px;box-shadow:0 12px 30px rgba(8,10,30,0.05)">
+            <h3 style="margin-top:0">Our Mission</h3>
+            <p class="muted">To empower businesses with approachable, effective digital solutions — because great things start with a single step.</p>
+            <div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap">
+              <a href="#pricing" class="pill">See Pricing</a>
+              <a href="#contact" class="pill">Get a Quote</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SERVICES -->
+    <section id="services">
+      <div class="section-title">
+        <h2>Our Services</h2>
+        <p class="muted">Services tailored to help you grow online.</p>
+      </div>
+      <div class="services-grid">
+        <div class="service fade">
+          <i class="fa-solid fa-bullhorn" style="font-size:28px;color:var(--accent)"></i>
+          <h3>Social Media Specialist</h3>
+          <p class="muted">Content strategy, posting calendar, community management, and creator collaborations.</p>
+        </div>
+        <div class="service fade">
+          <i class="fa-solid fa-chart-line" style="font-size:28px;color:var(--accent)"></i>
+          <h3>Digital Marketing</h3>
+          <p class="muted">Paid ads, SEO basics, analytics setup, and conversion optimization.</p>
+        </div>
+        <div class="service fade">
+          <i class="fa-solid fa-camera-retro" style="font-size:28px;color:var(--accent)"></i>
+          <h3>Creative Content</h3>
+          <p class="muted">Short-form videos, visuals, copywriting, and campaign concepts.</p>
+        </div>
+        <div class="service fade">
+          <i class="fa-solid fa-laptop-code" style="font-size:28px;color:var(--accent)"></i>
+          <h3>Web & Landing Pages</h3>
+          <p class="muted">Fast, responsive landing pages optimized for conversions.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- PORTFOLIO -->
+    <section id="portfolio">
+      <div class="section-title">
+        <h2>Portfolio</h2>
+        <p class="muted">Selected projects — real results, cheerful delivery.</p>
+      </div>
+      <div class="portfolio-grid">
+        <!-- Project 1 -->
+        <div class="proj" tabindex="0" data-img="https://images.pexels.com/photos/3182812/pexels-photo-3182812.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" data-title="Social Campaign - Fashion">
+          <img src="https://images.pexels.com/photos/3182812/pexels-photo-3182812.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=260&w=420" alt="Social Campaign">
+          <div class="meta">
+            <strong>Viral Social Campaign</strong>
+            <div class="muted">Increased engagement by 320% using relatable short videos.</div>
+            <div class="tags"><span class="tag">Social</span><span class="tag">Video</span></div>
+          </div>
+        </div>
+        <!-- Project 2 -->
+        <div class="proj" tabindex="0" data-img="https://images.pexels.com/photos/3182761/pexels-photo-3182761.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" data-title="Rebranding - Apparel">
+          <img src="https://images.pexels.com/photos/3182761/pexels-photo-3182761.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=260&w=420" alt="Rebranding">
+          <div class="meta">
+            <strong>Rebranding Project</strong>
+            <div class="muted">Full visual refresh to attract younger demographics.</div>
+            <div class="tags"><span class="tag">Brand</span><span class="tag">Identity</span></div>
+          </div>
+        </div>
+        <!-- Project 3 -->
+        <div class="proj" tabindex="0" data-img="https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" data-title="Ads - E-commerce">
+          <img src="https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=260&w=420" alt="Ads">
+          <div class="meta">
+            <strong>Digital Ads Campaign</strong>
+            <div class="muted">5x ROI with optimized ad creatives and targeting.</div>
+            <div class="tags"><span class="tag">Ads</span><span class="tag">ROAS</span></div>
+          </div>
+        </div>
+        <!-- Project 4 -->
+        <div class="proj" tabindex="0" data-img="https://images.pexels.com/photos/3779753/pexels-photo-3779753.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" data-title="Website - Startup">
+          <img src="https://images.pexels.com/photos/3779753/pexels-photo-3779753.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=260&w=420" alt="Website">
+          <div class="meta">
+            <strong>Website Design</strong>
+            <div class="muted">Responsive website with clear CTAs and onboarding flow.</div>
+            <div class="tags"><span class="tag">Web</span><span class="tag">UX</span></div>
+          </div>
+        </div>
+        <!-- Project 5 -->
+        <div class="proj" tabindex="0" data-img="https://images.pexels.com/photos/3184309/pexels-photo-3184309.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" data-title="Content - FMCG">
+          <img src="https://images.pexels.com/photos/3184309/pexels-photo-3184309.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=260&w=420" alt="Content">
+          <div class="meta">
+            <strong>Creative Content</strong>
+            <div class="muted">Short-form content and visuals for product launches.</div>
+            <div class="tags"><span class="tag">Content</span><span class="tag">Launch</span></div>
+          </div>
+        </div>
+        <!-- Project 6 -->
+        <div class="proj" tabindex="0" data-img="https://images.pexels.com/photos/3183150/pexels-photo-3183150.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" data-title="Analytics - Foodtech">
+          <img src="https://images.pexels.com/photos/3183150/pexels-photo-3183150.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=260&w=420" alt="Analytics">
+          <div class="meta">
+            <strong>Analytics & Growth</strong>
+            <div class="muted">Data-driven optimizations improving conversion funnel.</div>
+            <div class="tags"><span class="tag">Analytics</span><span class="tag">Growth</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TEAM -->
+    <section id="team">
+      <div class="section-title">
+        <h2>Our Team</h2>
+        <p class="muted">Friendly faces behind MuLu.</p>
+      </div>
+      <div class="team-grid">
+        <div class="member fade">
+          <img src="https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=200&w=200" alt="Member">
+          <h4>Alya Putri</h4>
+          <div class="muted">Founder & Creative Director</div>
+        </div>
+        <div class="member fade">
+          <img src="https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=200&w=200" alt="Member">
+          <h4>Rizky Pratama</h4>
+          <div class="muted">Head of Strategy</div>
+        </div>
+        <div class="member fade">
+          <img src="https://images.pexels.com/photos/1181299/pexels-photo-1181299.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=200&w=200" alt="Member">
+          <h4>Sofia Rahma</h4>
+          <div class="muted">Social Media Specialist</div>
+        </div>
+        <div class="member fade">
+          <img src="https://images.pexels.com/photos/2379005/pexels-photo-2379005.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=200&w=200" alt="Member">
+          <h4>Bayu Santoso</h4>
+          <div class="muted">Digital Marketer</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TESTIMONIALS -->
+    <section id="testimonials">
+      <div class="section-title">
+        <h2>Testimonials</h2>
+        <p class="muted">What clients say about working with us.</p>
+      </div>
+      <div class="testi-wrap">
+        <div class="testi fade">
+          <p>“MuLu turned our idea into a campaign that really connected with our audience. Their team is fast, creative, and reliable.”</p>
+          <div style="display:flex;align-items:center;gap:12px;margin-top:12px">
+            <img src="https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=80&w=80" alt="client" style="width:56px;height:56px;border-radius:999px;object-fit:cover">
+            <div>
+              <strong>Intan S</strong>
+              <div class="muted">CMO, Fashion Co.</div>
+            </div>
+          </div>
+        </div>
+        <div class="testi fade">
+          <p>“Their ads strategy increased our sales by 4x in two months. Recommend MuLu for brands that want real results.”</p>
+          <div style="display:flex;align-items:center;gap:12px;margin-top:12px">
+            <img src="https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=80&w=80" alt="client" style="width:56px;height:56px;border-radius:999px;object-fit:cover">
+            <div>
+              <strong>Arif H</strong>
+              <div class="muted">Founder, Foodtech</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PRICING -->
+    <section id="pricing">
+      <div class="section-title">
+        <h2>Pricing Packages</h2>
+        <p class="muted">Simple pricing for teams and startups.</p>
+      </div>
+      <div class="pricing-grid">
+        <div class="price fade">
+          <h3>Basic</h3>
+          <p class="muted">For startups getting started</p>
+          <h2>Rp 3.000.000</h2>
+          <ul style="list-style:disc;margin-left:18px;text-align:left;color:var(--muted)">
+            <li>Social media setup</li>
+            <li>8 posts / month</li>
+            <li>Monthly report</li>
+          </ul>
+          <button class="buy">Mulai Sekarang</button>
+        </div>
+        <div class="price fade">
+          <h3>Standard</h3>
+          <p class="muted">Growth-focused</p>
+          <h2>Rp 6.500.000</h2>
+          <ul style="list-style:disc;margin-left:18px;text-align:left;color:var(--muted)">
+            <li>Content + Ads management</li>
+            <li>20 posts / month</li>
+            <li>Bi-weekly optimization</li>
+          </ul>
+          <button class="buy">Mulai Sekarang</button>
+        </div>
+        <div class="price fade">
+          <h3>Premium</h3>
+          <p class="muted">Full-service agency</p>
+          <h2>Rp 15.000.000</h2>
+          <ul style="list-style:disc;margin-left:18px;text-align:left;color:var(--muted)">
+            <li>Full campaign + production</li>
+            <li>Priority support</li>
+            <li>Dedicated strategist</li>
+          </ul>
+          <button class="buy">Mulai Sekarang</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- BLOG -->
+    <section id="blog">
+      <div class="section-title">
+        <h2>Insights</h2>
+        <p class="muted">Short reads about social media and digital trends.</p>
+      </div>
+      <div class="blog-grid">
+        <div class="post fade">
+          <h4>3 Tips to Grow on TikTok in 2025</h4>
+          <p class="muted">Quick strategies to increase views and engagement using trends and short hooks.</p>
+        </div>
+        <div class="post fade">
+          <h4>How to Create Ads that Convert</h4>
+          <p class="muted">A simple framework for copy, creative, and CTA testing.</p>
+        </div>
+        <div class="post fade">
+          <h4>Branding on a Budget</h4>
+          <p class="muted">Low-cost initiatives that still build recognition and trust.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact">
+      <div class="section-title">
+        <h2>Contact</h2>
+        <p class="muted">Ready to start? Drop your details and we'll reach out.</p>
+      </div>
+      <div class="contact-grid">
+        <div>
+          <form id="contactForm">
+            <input id="name" type="text" placeholder="Your name" required>
+            <input id="email" type="email" placeholder="Your email" required>
+            <textarea id="msg" rows="5" placeholder="Tell us about your project" required></textarea>
+            <div style="display:flex;gap:12px;align-items:center">
+              <button type="submit" class="buy">Send Message</button>
+              <div style="font-size:14px;color:var(--muted)">or reach us directly:</div>
+            </div>
+          </form>
+
+          <div style="margin-top:14px;display:flex;gap:12px;align-items:center">
+            <a href="https://wa.me/6289512538586" target="_blank" class="center" style="gap:8px;padding:8px 12px;border-radius:999px;background:#25D366;color:white;box-shadow:0 6px 18px rgba(37,211,102,0.15)"><i class="fab fa-whatsapp"></i><span>+62 895-1253-8586</span></a>
+            <a href="https://instagram.com/MuLuProduction" target="_blank" class="center" style="gap:8px;padding:8px 12px;border-radius:999px;background:linear-gradient(90deg,var(--accent),var(--accent-2));color:white;"><i class="fab fa-instagram"></i><span>@MuLuProduction</span></a>
+          </div>
+        </div>
+        <div style="text-align:center">
+          <img src="https://images.pexels.com/photos/3184298/pexels-photo-3184298.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=520&w=940" alt="Contact illustration">
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <div style="display:flex;align-items:center;justify-content:space-between;max-width:1100px;margin:18px auto;padding:0 20px">
+        <div>
+          <strong>MuLu</strong>
+          <div class="muted">Mulai Aja Dulu</div>
+        </div>
+        <div>
+          <a href="https://wa.me/6289512538586" target="_blank" style="margin-right:12px;color:var(--accent-2)"><i class="fab fa-whatsapp"></i></a>
+          <a href="https://instagram.com/MuLuProduction" target="_blank" style="color:var(--accent-2)"><i class="fab fa-instagram"></i></a>
+        </div>
+      </div>
+      <div style="margin-top:10px;color:rgba(0,0,0,0.6)">© <span id="year"></span> MuLu Production — Mulai Aja Dulu</div>
+    </footer>
+
+    <!-- Portfolio Modal -->
+    <div id="modal" style="position:fixed;inset:0;background:rgba(2,6,23,0.6);display:none;align-items:center;justify-content:center;padding:20px;z-index:999">
+      <div style="max-width:900px;width:100%;background:white;border-radius:12px;overflow:hidden;box-shadow:0 20px 60px rgba(2,6,23,0.6)">
+        <div style="display:flex;justify-content:flex-end;padding:10px"><button id="closeModal" style="background:none;border:0;font-size:20px;cursor:pointer;padding:8px">✕</button></div>
+        <div style="display:flex;gap:16px;padding:16px;align-items:center">
+          <img id="modalImg" src="" alt="project" style="width:50%;border-radius:10px;object-fit:cover">
+          <div>
+            <h3 id="modalTitle"></h3>
+            <p class="muted">Project details and description go here. Replace with real copy.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <script>
+    // set current year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(a=>{
+      a.addEventListener('click', (e)=>{
+        const href = a.getAttribute('href');
+        if(href.length>1){
+          e.preventDefault();
+          document.querySelector(href).scrollIntoView({behavior:'smooth',block:'start'});
+        }
+      });
+    });
+
+    // Reveal on scroll
+    const observer = new IntersectionObserver((entries)=>{
+      entries.forEach(entry=>{
+        if(entry.isIntersecting){
+          entry.target.classList.add('show');
+        }
+      });
+    },{threshold:0.12});
+    document.querySelectorAll('.fade').forEach(el=>observer.observe(el));
+
+    // Mobile burger toggle
+    const burger = document.querySelector('.burger');
+    burger.addEventListener('click', ()=>{
+      const ul = document.querySelector('nav ul');
+      if(ul.style.display === 'flex') ul.style.display = 'none';
+      else ul.style.display = 'flex';
+      ul.style.flexDirection = 'column';
+      ul.style.position = 'absolute';
+      ul.style.right = '22px';
+      ul.style.top = '76px';
+      ul.style.background = 'white';
+      ul.style.padding = '12px';
+      ul.style.borderRadius = '12px';
+      ul.style.boxShadow = '0 10px 30px rgba(10,20,40,0.08)';
+    });
+
+    // Portfolio modal
+    const modal = document.getElementById('modal');
+    const modalImg = document.getElementById('modalImg');
+    const modalTitle = document.getElementById('modalTitle');
+    document.querySelectorAll('.proj').forEach(p=>{
+      p.addEventListener('click', ()=>{
+        modalImg.src = p.dataset.img;
+        modalTitle.textContent = p.dataset.title;
+        modal.style.display = 'flex';
+      });
+      p.addEventListener('keypress', (e)=>{ if(e.key === 'Enter') p.click(); });
+    });
+    document.getElementById('closeModal').addEventListener('click', ()=> modal.style.display='none');
+    modal.addEventListener('click', (e)=>{ if(e.target === modal) modal.style.display='none'; });
+
+    // Contact form demo handler
+    document.getElementById('contactForm').addEventListener('submit', (e)=>{
+      e.preventDefault();
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const msg = document.getElementById('msg').value.trim();
+      if(!name||!email||!msg){ alert('Please complete the form.'); return; }
+      alert('Thanks '+name+"! We'll reach out soon via WhatsApp.");
+      e.target.reset();
+    });
+
+    // Lazy load images (simple)
+    const imgs = document.querySelectorAll('img');
+    imgs.forEach(img=>{ img.loading = 'lazy'; });
+  </script>
+</body>
+</html>
